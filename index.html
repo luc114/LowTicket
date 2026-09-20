@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Primeira Venda — comece a vender hoje</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+
+    --bg: #070c09;
+    --bg-2: #0c1410;
+    --card: #10170f;
+    --card-line: #2a3324;
+    --gold-1: #ffe9a8;
+    --gold-2: #d9a62a;
+    --gold-deep: #8a6512;
+    --green: #35d68f;
+    --green-deep: #16603f;
+    --hi: #f4f1e4;
+    --lo: #9aa79b;
+    --lo-2: #6c7a6b;
+  }
+  :root:not([data-theme="light"]) { --bg: #050908; --bg-2: #0a100c; }
+  :root[data-theme="dark"] { --bg: #050908; --bg-2: #0a100c; }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  html { scroll-behavior: smooth; scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(ellipse 700px 500px at 50% -10%, rgba(217,166,42,0.18), transparent 60%),
+      radial-gradient(ellipse 600px 400px at 100% 100%, rgba(53,214,143,0.10), transparent 60%),
+      var(--bg);
+    color: var(--hi);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 560px; margin: 0 auto; padding: 0 18px 44px; }
+
+  header.top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 18px;
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30;
+    background: rgba(7,12,9,0.85);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--card-line);
+  }
+  .logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.02rem; color: var(--hi);
+  }
+  .logo b { background: linear-gradient(120deg, var(--gold-1), var(--gold-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .top-cta {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 0.78rem;
+    color: #17210f;
+    background: linear-gradient(120deg, var(--gold-1), var(--gold-2));
+    padding: 9px 14px; border-radius: 20px;
+    text-decoration: none;
+  }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 40px 0 30px; text-align: center; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em;
+    color: var(--green);
+    background: rgba(53,214,143,0.10);
+    border: 1px solid rgba(53,214,143,0.35);
+    padding: 5px 12px; border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.9rem, 8vw, 2.5rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+  }
+  h1 .g { background: linear-gradient(120deg, var(--gold-1), var(--gold-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p {
+    color: var(--lo);
+    font-size: 0.98rem;
+    max-width: 38ch;
+    margin: 0 auto 26px;
+    line-height: 1.55;
+  }
+  .btn-main {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1rem;
+    color: #17210f;
+    background: linear-gradient(120deg, var(--gold-1), var(--gold-2));
+    padding: 15px 28px; border-radius: 30px;
+    text-decoration: none;
+    box-shadow: 0 0 0 1px rgba(255,233,168,0.4), 0 10px 30px -8px rgba(217,166,42,0.65);
+  }
+
+  /* ---------- pricing: sempre lado a lado ---------- */
+  .plans-head { text-align: center; margin: 8px 0 18px; }
+  .plans-head h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.25rem; margin: 0 0 4px;
+  }
+  .plans-head p { color: var(--lo); font-size: 0.85rem; margin: 0; }
+
+  .plans {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .plan {
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: 16px;
+    padding: 16px 12px;
+    position: relative;
+    overflow: hidden;
+  }
+  .plan .name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 0.92rem;
+    color: var(--hi); margin-bottom: 2px;
+  }
+  .plan .tag { font-size: 0.68rem; color: var(--lo-2); display: block; margin-bottom: 12px; }
+  .plan .price {
+    display: flex; align-items: baseline; gap: 2px;
+    margin-bottom: 12px;
+  }
+  .plan .price .cur { font-size: 0.72rem; font-weight: 700; color: var(--lo); }
+  .plan .price .num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 800; font-size: 1.55rem;
+    color: var(--hi);
+  }
+  .plan .price .cents { font-size: 0.85rem; font-weight: 700; color: var(--lo); align-self: flex-start; margin-top: 3px; }
+  .plan ul { list-style: none; margin: 0 0 14px; padding: 0; }
+  .plan li {
+    font-size: 0.74rem; line-height: 1.4;
+    color: var(--lo);
+    padding: 5px 0 5px 16px;
+    position: relative;
+  }
+  .plan li::before {
+    content: "✓"; position: absolute; left: 0; top: 5px;
+    color: var(--green); font-weight: 700; font-size: 0.7rem;
+  }
+  .plan .go {
+    display: block; width: 100%; text-align: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 0.78rem;
+    padding: 10px 0; border-radius: 10px;
+    text-decoration: none;
+    background: rgba(255,255,255,0.06);
+    color: var(--hi);
+    border: 1px solid var(--card-line);
+  }
+
+  .plan.premium { border-color: var(--gold-deep); background: linear-gradient(180deg, rgba(217,166,42,0.14), var(--card) 45%); }
+  .plan.premium .price .num { background: linear-gradient(120deg, var(--gold-1), var(--gold-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .plan.premium li::before { color: var(--gold-2); }
+  .plan.premium .go { background: linear-gradient(120deg, var(--gold-1), var(--gold-2)); color: #17210f; border: none; }
+  .tag-best {
+    position: absolute; top: 10px; right: 10px;
+    font-size: 0.58rem; font-weight: 700; letter-spacing: 0.02em;
+    color: #17210f;
+    background: linear-gradient(120deg, var(--gold-1), var(--gold-2));
+    padding: 3px 8px; border-radius: 20px;
+  }
+  .plan.premium::before {
+    content: "";
+    position: absolute; inset: -60% -20%;
+    background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.10) 50%, transparent 60%);
+    animation: shine 5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes shine {
+    0%, 60%, 100% { transform: translateX(-30%); }
+    80% { transform: translateX(30%); }
+  }
+  @media (prefers-reduced-motion: reduce) { .plan.premium::before { animation: none; } }
+
+  /* ---------- garantia + cta final ---------- */
+  .trust {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin: 26px 0 8px;
+    font-size: 0.78rem; color: var(--lo);
+  }
+  .trust b { color: var(--green); }
+  .final { text-align: center; margin-top: 18px; }
+
+  /* ---------- o que você recebe (features) ---------- */
+  .feat-head { text-align: center; margin: 6px 0 16px; }
+  .feat-head h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.2rem; margin: 0 0 4px;
+  }
+  .feat-head p { color: var(--lo); font-size: 0.84rem; margin: 0; }
+
+  .feats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .feat {
+    background: var(--card);
+    border: 1px solid var(--card-line);
+    border-radius: 14px;
+    padding: 14px 12px;
+  }
+  .feat .ico { font-size: 1.2rem; display: block; margin-bottom: 8px; }
+  .feat h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 0.84rem; color: var(--hi);
+    margin: 0 0 4px; line-height: 1.2;
+  }
+  .feat p { font-size: 0.72rem; color: var(--lo); line-height: 1.4; margin: 0; }
+  .feat.highlight { border-color: var(--gold-deep); background: linear-gradient(180deg, rgba(217,166,42,0.12), var(--card) 60%); }
+  .feat.highlight .ico { filter: drop-shadow(0 0 6px rgba(217,166,42,0.5)); }
+
+  /* ---------- como funciona ---------- */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 6px; }
+  .step { text-align: center; padding: 4px; }
+  .step .n {
+    width: 30px; height: 30px; margin: 0 auto 8px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 0.85rem;
+    color: #17210f;
+    background: linear-gradient(120deg, var(--gold-1), var(--gold-2));
+  }
+  .step h3 { font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 700; margin: 0 0 4px; color: var(--hi); }
+  .step p { font-size: 0.68rem; color: var(--lo); line-height: 1.4; margin: 0; }
+
+  /* ---------- depoimentos (estilo feed) ---------- */
+  .social-head { text-align: center; margin: 8px 0 20px; }
+  .social-head .kicker { font-size: 0.68rem; letter-spacing: 0.08em; color: var(--lo-2); text-transform: uppercase; display: block; margin-bottom: 6px; }
+  .social-head h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 800; font-size: clamp(1.4rem, 6vw, 1.8rem);
+    margin: 0 0 8px; line-height: 1.1;
+  }
+  .social-head h2 .g { background: linear-gradient(120deg, var(--green), #7ef2bb); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .social-head p { color: var(--lo); font-size: 0.78rem; margin: 0; }
+
+  .feed { display: flex; flex-direction: column; gap: 10px; }
+  .post {
+    background: var(--card); border: 1px solid var(--card-line);
+    border-radius: 14px; padding: 14px;
+  }
+  .post-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 0.8rem;
+    color: #17210f;
+  }
+  .post-who { flex: 1; min-width: 0; }
+  .post-who b { font-size: 0.8rem; color: var(--hi); display: block; }
+  .post-who span { font-size: 0.66rem; color: var(--lo-2); }
+  .post p { font-size: 0.78rem; color: var(--lo); line-height: 1.5; margin: 0 0 8px; }
+  .post-actions { display: flex; align-items: center; gap: 14px; font-size: 0.68rem; color: var(--lo-2); }
+  .post-actions .like { color: var(--green); }
+
+  /* ---------- barra de confiança ---------- */
+  .badges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 22px 0; }
+  .badge {
+    text-align: center; padding: 10px 4px;
+    background: var(--card); border: 1px solid var(--card-line); border-radius: 12px;
+  }
+  .badge .ico { font-size: 1.05rem; display: block; margin-bottom: 4px; }
+  .badge span { font-size: 0.62rem; color: var(--lo); line-height: 1.3; display: block; }
+
+  /* ---------- pitch (imagem + copy antes dos planos) ---------- */
+  .pitch { text-align: center; padding-top: 4px; }
+  .pitch-art { width: 100%; max-width: 320px; height: auto; margin: 0 auto 16px; display: block; }
+  .pitch h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.25rem; margin: 0 0 10px; line-height: 1.2;
+  }
+  .pitch p { color: var(--lo); font-size: 0.85rem; max-width: 40ch; margin: 0 auto; line-height: 1.6; }
+
+  /* ---------- faq ---------- */
+  details {
+    border-bottom: 1px solid var(--card-line);
+    padding: 12px 2px;
+  }
+  details:last-child { border-bottom: none; }
+  summary {
+    cursor: pointer; list-style: none;
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; font-size: 0.82rem; color: var(--hi);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--gold-2); font-size: 1.1rem; flex-shrink: 0; }
+  details[open] summary::after { content: "–"; }
+  details p { margin: 8px 0 0; font-size: 0.75rem; color: var(--lo); line-height: 1.5; }
+
+  footer {
+    text-align: center;
+    color: var(--lo-2);
+    font-size: 0.66rem;
+    line-height: 1.6;
+    padding: 18px;
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="logo"><b>Primeira</b> Venda</div>
+  <a class="top-cta" href="#planos">Começar</a>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">Método de baixo ticket</span>
+    <h1>Sua <span class="g">primeira venda</span> no digital começa hoje.</h1>
+    <p>Clone ofertas que já vendem, monte sua página e coloque o anúncio no ar — do zero até o dinheiro cair na conta.</p>
+    <a class="btn-main" href="#planos">Quero começar agora →</a>
+  </section>
+
+  <section>
+    <div class="feat-head">
+      <h2>O que você recebe</h2>
+      <p>Tudo pronto pra você sair do zero e vender</p>
+    </div>
+    <div class="feats">
+      <div class="feat">
+        <span class="ico">📋</span>
+        <h3>Guia prático de low ticket</h3>
+        <p>Passo a passo direto, sem enrolação, do zero até a venda.</p>
+      </div>
+      <div class="feat">
+        <span class="ico">📊</span>
+        <h3>Gestão da campanha</h3>
+        <p>Acompanhe seus anúncios e resultados sem perder o controle.</p>
+      </div>
+      <div class="feat">
+        <span class="ico">💵</span>
+        <h3>Gestão das vendas</h3>
+        <p>Anote e organize cada venda com clareza sobre seu lucro.</p>
+      </div>
+      <div class="feat highlight">
+        <span class="ico">📈</span>
+        <h3>Planilha de controle</h3>
+        <p>Vendas, gastos e lucro num só lugar, atualizado por você.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="feat-head">
+      <h2>Como funciona</h2>
+      <p>Do zero até a primeira venda, em 3 passos</p>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="n">1</span><h3>Clone a oferta</h3><p>Escolha uma oferta validada na biblioteca de anúncios.</p></div>
+      <div class="step"><span class="n">2</span><h3>Monte sua página</h3><p>Ajuste o criativo e suba sua página com checkout.</p></div>
+      <div class="step"><span class="n">3</span><h3>Coloque no ar</h3><p>Anúncio ativo e sua gestão rodando em um só lugar.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="social-head">
+      <span class="kicker">Depoimentos sobre o</span>
+      <h2>Método <span class="g">Low Ticket</span></h2>
+      <p>Quem já aplicou e tirou a primeira venda do papel</p>
+    </div>
+    <div class="feed">
+      <div class="post">
+        <div class="post-top">
+          <div class="avatar" style="background:linear-gradient(135deg,#ffe9a8,#d9a62a);">R</div>
+          <div class="post-who"><b>rafael.s</b><span>23 min</span></div>
+        </div>
+        <p>Nunca tinha vendido nada online. Segui o guia direitinho e consegui subir minha primeira página no mesmo dia.</p>
+        <div class="post-actions"><span class="like">♥ Curtir</span><span>Responder</span></div>
+      </div>
+      <div class="post">
+        <div class="post-top">
+          <div class="avatar" style="background:linear-gradient(135deg,#7ef2bb,#35d68f);">D</div>
+          <div class="post-who"><b>diego.m</b><span>1h</span></div>
+        </div>
+        <p>A gestão da campanha facilitou muito. Ficou fácil ver o que estava dando resultado e o que não estava.</p>
+        <div class="post-actions"><span class="like">♥ Curtir</span><span>Responder</span></div>
+      </div>
+      <div class="post">
+        <div class="post-top">
+          <div class="avatar" style="background:linear-gradient(135deg,#ffe9a8,#d9a62a);">B</div>
+          <div class="post-who"><b>bruno.a</b><span>2h</span></div>
+        </div>
+        <p>O guia foi direto ao ponto, sem enrolação. A planilha do Premium ajudou a enxergar o lucro de verdade.</p>
+        <div class="post-actions"><span class="like">♥ Curtir</span><span>Responder</span></div>
+      </div>
+      <div class="post">
+        <div class="post-top">
+          <div class="avatar" style="background:linear-gradient(135deg,#7ef2bb,#35d68f);">C</div>
+          <div class="post-who"><b>carla.f</b><span>1d</span></div>
+        </div>
+        <p>Comecei sem saber nada de tráfego pago. Clonei uma oferta que já funcionava e foi mais simples do que eu imaginava.</p>
+        <div class="post-actions"><span class="like">♥ Curtir</span><span>Responder</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="badges">
+      <div class="badge"><span class="ico">✅</span><span>Compra segura</span></div>
+      <div class="badge"><span class="ico">⚡</span><span>Acesso imediato</span></div>
+      <div class="badge"><span class="ico">🔄</span><span>7 dias de garantia</span></div>
+    </div>
+  </section>
+
+  <section class="pitch">
+    <svg class="pitch-art" viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gráfico ilustrativo de crescimento">
+      <defs>
+        <linearGradient id="barGrad" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#8a6512"/>
+          <stop offset="100%" stop-color="#ffe9a8"/>
+        </linearGradient>
+        <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#35d68f"/>
+          <stop offset="100%" stop-color="#7ef2bb"/>
+        </linearGradient>
+      </defs>
+      <rect x="20" y="100" width="28" height="40" rx="4" fill="url(#barGrad)" opacity="0.55"/>
+      <rect x="66" y="80" width="28" height="60" rx="4" fill="url(#barGrad)" opacity="0.7"/>
+      <rect x="112" y="55" width="28" height="85" rx="4" fill="url(#barGrad)" opacity="0.85"/>
+      <rect x="158" y="30" width="28" height="110" rx="4" fill="url(#barGrad)"/>
+      <rect x="204" y="10" width="28" height="130" rx="4" fill="url(#barGrad)"/>
+      <path d="M20 118 L66 96 L112 68 L158 44 L232 20" stroke="url(#lineGrad)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="232" cy="20" r="6" fill="#7ef2bb"/>
+    </svg>
+    <h2>Baixo investimento, primeiro resultado rápido</h2>
+    <p>É por isso que o baixo ticket é a porta de entrada mais rápida no digital: você testa com pouco, aprende fazendo e já sai daqui com tudo pronto pra rodar sua primeira campanha — método, gestão e planilha, num só lugar.</p>
+  </section>
+
+  <section id="planos">
+    <div class="plans-head">
+      <h2>Escolha seu plano</h2>
+      <p>Pagamento único · acesso imediato</p>
+    </div>
+
+    <div class="plans">
+      <div class="plan">
+        <span class="name">Básico</span>
+        <span class="tag">primeiro passo</span>
+        <div class="price"><span class="cur">R$</span><span class="num">19</span><span class="cents">,90</span></div>
+        <ul>
+          <li>5 módulos completos</li>
+          <li>15 aulas práticas</li>
+          <li>Guia prático de low ticket</li>
+          <li>Checklist de 7 passos</li>
+          <li>Acesso vitalício</li>
+        </ul>
+        <a class="go" href="#">Quero este</a>
+      </div>
+
+      <div class="plan premium">
+        <span class="tag-best">top</span>
+        <span class="name">Premium</span>
+        <span class="tag">gestão completa</span>
+        <div class="price"><span class="cur">R$</span><span class="num">47</span><span class="cents">,90</span></div>
+        <ul>
+          <li>Tudo do Básico</li>
+          <li>Ferramenta de gestão completa (campanha + vendas)</li>
+          <li>Planilha de controle financeiro</li>
+          <li>Calculadora de orçamento</li>
+          <li>Criativos e páginas prontas</li>
+          <li>Suporte prioritário</li>
+        </ul>
+        <a class="go" href="#">Quero este</a>
+      </div>
+    </div>
+
+    <div class="trust"><b>7 dias</b> de garantia — sem enrolação</div>
+  </section>
+
+  <section>
+    <div class="feat-head"><h2>Perguntas frequentes</h2></div>
+    <details>
+      <summary>Preciso ter experiência antes de começar?</summary>
+      <p>Não. O método foi feito pra quem nunca vendeu nada online — o guia parte do zero.</p>
+    </details>
+    <details>
+      <summary>Vou precisar investir em anúncios?</summary>
+      <p>Sim, um valor pequeno pra rodar sua primeira campanha. A gestão te ajuda a acompanhar cada real gasto.</p>
+    </details>
+    <details>
+      <summary>Qual a diferença entre Básico e Premium?</summary>
+      <p>O Básico te dá o método completo. O Premium inclui também a ferramenta de gestão completa, planilha financeira, criativos e páginas prontas.</p>
+    </details>
+    <details>
+      <summary>Por quanto tempo tenho acesso?</summary>
+      <p>Acesso vitalício, nos dois planos.</p>
+    </details>
+  </section>
+
+  <section class="final">
+    <a class="btn-main" href="#planos">Ver planos e começar →</a>
+  </section>
+
+</div>
+
+<footer>Método educacional independente. Resultados dependem do esforço de cada pessoa — sem promessa de renda garantida.</footer>
+
+</body>
+</html>
